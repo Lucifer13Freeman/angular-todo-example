@@ -1,0 +1,53 @@
+<div class="jumbotron" style="padding: 45px 0px">
+  <h4 class="text-center">To Do List</h4>
+</div>
+
+<div *ngIf="todos$ | async as todos">
+  <div class="input-group">
+    <input type="text" class="form-control" #todoText />
+    <div
+      class="input-group-addon hover-cursor"
+      (click)="addTodo(todoText.value)"
+    >
+      <i class="fa fa-plus-circle fa-2x"></i>
+    </div>
+    <div
+      class="input-group-addon hover-cursor"
+      (click)="sortByCreatedDateAsc()"
+    >
+      <i class="fa fa-arrow-up fa-2x"></i>
+    </div>
+    <div
+      class="input-group-addon hover-cursor"
+      (click)="sortByCreatedDateDesc()"
+    >
+      <i class="fa fa-arrow-down fa-2x"></i>
+    </div>
+  </div>
+
+  <div style="margin: 5px 0px">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let todo of todos">
+        <span
+          class="hover-cursor"
+          [class.text-success]="todo.isCompleted"
+          (click)="changeStatus(todo)"
+        >
+          <i
+            class="fa fa-lg"
+            [ngClass]="
+              todo.isCompleted ? 'fa-check-circle-o' : 'fa-circle-thin'
+            "
+          ></i>
+        </span>
+        {{ todo.text }}
+        <span
+          class="hover-cursor text-danger pull-right"
+          (click)="removeTodo(todo)"
+        >
+          <i class="fa fa-trash-o fa-lg"></i>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
