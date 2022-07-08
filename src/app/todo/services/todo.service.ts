@@ -134,6 +134,20 @@ export class TodoService {
     return sortedTodos;
   }
 
+  public getSortedTodosByCompleted(sort: OrderBy = OrderBy.ASC): Todo[] {
+    const todos: Todo[] = this.getTodos();
+
+    const completed: Todo[] = todos.filter((t: Todo) => t.isCompleted)
+    const incompleted: Todo[] = todos.filter((t: Todo) => !t.isCompleted)
+    
+    const sortedTodos: Todo[] = sort === OrderBy.DESC 
+      ? [...incompleted, ...completed] 
+      : [...completed, ...incompleted];
+
+    this._todosSubject$.next(sortedTodos);
+    return sortedTodos;
+  }
+
   public setSortedTodosToDefault(): Todo[] {
     const todos: Todo[] = this.getTodosFromStorage();
     this._todosSubject$.next(todos);

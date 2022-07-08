@@ -48,4 +48,12 @@ export class TodoComponent implements OnInit {
   public sortByCreatedDateDesc() {
     this.todoService.getSortedTodosByCreatedDate(OrderBy.DESC);
   }
+
+  public sortByComletedAsc() {
+    this.todoService.getSortedTodosByCompleted(OrderBy.ASC);
+  }
+
+  public sortByComletedDesc() {
+    this.todoService.getSortedTodosByCompleted(OrderBy.DESC);
+  }
 }
