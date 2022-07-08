@@ -22,7 +22,7 @@ export class TodoComponent implements OnInit {
     this.getTodos();
   }
 
-  public getTodos() {
+  private getTodos() {
     this.todos$ = this.todoService.getTodos$();
   }
 
@@ -31,7 +31,9 @@ export class TodoComponent implements OnInit {
   }
 
   public changeStatus(todo: Todo) {
+    console.log(todo)
     todo.isCompleted ? todo.uncomplete() : todo.complete();
+    console.log(todo)
     this.todoService.updateTodo(todo);
   }
 

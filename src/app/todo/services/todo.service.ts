@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OrderBy } from 'src/app/common/enums/order-by.enum';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
+import { TodoEntity } from '../entities/todo.entity';
 import { Todo } from '../models/todo.model';
 
 
@@ -57,21 +58,28 @@ export class TodoService {
   }
 
   public getTodosFromStorage(): Todo[] {
-    const todos: Todo[] | null = this.storageService.get(this.storageKey);
-    if (!todos) {
+    const todosEntities: TodoEntity[] | null = this.storageService.get(this.storageKey);
+    if (!todosEntities) {
       return []
     };
+    const todos: Todo[] = todosEntities.map((t: TodoEntity) => new Todo(t));
+    return todos;
+  }
+
+  private setTodosToStorage(todos: Todo[]): Todo[] {
+    const todosEntities: TodoEntity[] = todos.map((t: Todo) => t.toEntity());
+    this.storageService.set(this.storageKey, todosEntities);
     return todos;
   }
 
   public addTodo(text: string): Todo {
     const todos: Todo[] = this.getTodos();
-    const todo = new Todo(this._nextId, text);
+    const todo = new Todo({ id: this._nextId, text });
 
     todos.push(todo);
 
     this._todosSubject$.next(todos);
-    this.storageService.set(this.storageKey, todos);
+    this.setTodosToStorage(todos);
 
     this._nextId++;
     this.storageService.set(this.nextIdStorageKey, this._nextId);
@@ -96,7 +104,7 @@ export class TodoService {
     }
 
     this._todosSubject$.next(todos);
-    this.storageService.set(this.storageKey, todos);
+    this.setTodosToStorage(todos);
     this._nextId++;
 
     return todo;
@@ -107,8 +115,8 @@ export class TodoService {
     const filteredTodos: Todo[] = todos.filter((todo)=> todo.id !== id);
 
     this._todosSubject$.next(filteredTodos);
-    this.storageService.set(this.storageKey, filteredTodos);
-    
+    this.setTodosToStorage(todos);
+
     return filteredTodos;
   }
 
