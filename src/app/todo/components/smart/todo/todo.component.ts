@@ -27,6 +27,9 @@ export class TodoComponent implements OnInit {
   }
 
   public addTodo(text: string) {
+    if (text === '') {
+      return;
+    }
     this.todoService.addTodo(text);
   }
 
