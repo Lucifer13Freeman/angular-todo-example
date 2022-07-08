@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoComponent } from './components/smart/todo/todo.component';
 import { ToDoRoutingModule } from './todo-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,8 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    ToDoRoutingModule,
-    ReactiveFormsModule
+    ToDoRoutingModule
   ],
   bootstrap: [
     TodoComponent
