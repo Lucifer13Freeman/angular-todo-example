@@ -115,7 +115,7 @@ export class TodoService {
     const filteredTodos: Todo[] = todos.filter((todo)=> todo.id !== id);
 
     this._todosSubject$.next(filteredTodos);
-    this.setTodosToStorage(todos);
+    this.setTodosToStorage(filteredTodos);
 
     return filteredTodos;
   }
