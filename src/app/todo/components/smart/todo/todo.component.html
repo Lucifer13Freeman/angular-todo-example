@@ -5,42 +5,47 @@
 <div class="container" *ngIf="todos$ | async as todos">
   <form *ngIf="!editingTodo" class="input-group">
     <input [formControl]="todoAdd" 
-      type="text" 
+      type="text"
       class="form-control" 
       placeholder="to do..."
     />
-    <div
-      class="input-group-addon add hover-cursor"
+    <div class="input-group-addon add hover-cursor"
       (click)="addTodo(todoAdd.value)"
     >
       <i class="material-icons">add_circle</i>
     </div>
-    <div
-      class="input-group-addon add hover-cursor"
+    <div class="input-group-addon add hover-cursor"
       (click)="sortByCreatedDateAsc()"
     >
       <i class="material-icons reverse-icon-y">sort</i>
     </div>
-    <div
-      class="input-group-addon add hover-cursor"
+    <div class="input-group-addon add hover-cursor"
       (click)="sortByCreatedDateDesc()"
     >
       <i class="material-icons">sort</i>
     </div>
-    <div class="input-group-addon add hover-cursor" (click)="sortByComletedAsc()">
+    <div class="input-group-addon add hover-cursor" 
+      (click)="sortByComletedAsc()"
+    >
       <i class="material-icons">check_circle</i>
     </div>
-    <div class="input-group-addon add hover-cursor" (click)="sortByComletedDesc()">
+    <div class="input-group-addon add hover-cursor" 
+      (click)="sortByComletedDesc()"
+    >
       <i class="material-icons">radio_button_unchecked</i>
     </div>
   </form>
 
   <form *ngIf="editingTodo" class="input-group">
     <input [formControl]="todoEdit" type="text" class="form-control" />
-    <div class="input-group-addon edit hover-cursor" (click)="onSubmitEditTodo()">
+    <div class="input-group-addon edit hover-cursor" 
+      (click)="onSubmitEditTodo()"
+    >
       <i class="material-icons">check_circle</i>
     </div>
-    <div class="input-group-addon edit hover-cursor" (click)="onCancelEditTodo()">
+    <div class="input-group-addon edit hover-cursor" 
+      (click)="onCancelEditTodo()"
+    >
       <i class="material-icons">cancel</i>
     </div>
   </form>
