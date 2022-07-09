@@ -1,4 +1,6 @@
-export class TodoEntity {
+import { ITodo } from "../interfaces/todo.interface";
+
+export class TodoEntity implements ITodo {
     public id!: number;
     public text!: string;
     public isCompleted!: boolean;

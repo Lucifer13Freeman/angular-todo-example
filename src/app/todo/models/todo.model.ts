@@ -1,5 +1,5 @@
-import { TodoDto } from "../dto/todo.dto";
 import { TodoEntity } from "../entities/todo.entity";
+import { ITodo } from "../interfaces/todo.interface";
 
 
 export class Todo {
@@ -11,16 +11,17 @@ export class Todo {
     private _updatedAt: Date;
     private _completedAt: Date | null;
   
-    constructor(dto: TodoDto) {
-        const { id, text, isCompleted, 
-            createdAt, updatedAt, completedAt } = dto;
+    constructor({ 
+        id, text, isCompleted, 
+        createdAt, updatedAt, completedAt 
+    }: ITodo) {
 
         this._id = id;
         this._text = text;
-        this._isCompleted = isCompleted || false;
-        this._createdAt = createdAt || new Date();
-        this._updatedAt = updatedAt || new Date();
-        this._completedAt = completedAt || null;
+        this._isCompleted = isCompleted ?? false;
+        this._createdAt = createdAt ?? new Date();
+        this._updatedAt = updatedAt ?? new Date();
+        this._completedAt = completedAt ?? null;
     }
 
     get id(): number { 
@@ -42,20 +43,19 @@ export class Todo {
         return this._completedAt; 
     }
 
-    public complete() {
-        this._isCompleted = true;
-        this._completedAt = new Date();
-    }
-
-    public uncomplete () {
-        this._isCompleted = false;
-        this._completedAt = null;
-    }
-
-    public updateText(text: string) {
+    set text(text: string) {
         this._text = text;
         this._updatedAt = new Date();
     }
+    
+    set isCompleted(isCompleted: boolean) {
+        this._isCompleted = isCompleted;
+        this._completedAt = isCompleted ? new Date() : null;
+    }
+
+    static fromEntity(entity: TodoEntity): Todo {
+        return new this(entity);
+    } 
 
     public toEntity(): TodoEntity {
         const entity: TodoEntity = {

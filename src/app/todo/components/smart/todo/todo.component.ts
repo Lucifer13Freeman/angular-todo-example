@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { OrderBy } from 'src/app/common/enums/order-by.enum';
 import { Todo } from 'src/app/todo/models/todo.model';
@@ -15,6 +16,10 @@ import { TodoService } from 'src/app/todo/services/todo.service';
 export class TodoComponent implements OnInit {
 
   public todos$!: Observable<Todo[]>;
+  public editingTodo: Todo | null = null;
+
+  public todoAdd: FormControl = new FormControl('');
+  public todoEdit: FormControl = new FormControl('');
 
   constructor(private readonly todoService: TodoService) { }
 
@@ -22,41 +27,60 @@ export class TodoComponent implements OnInit {
     this.getTodos();
   }
 
-  private getTodos() {
-    this.todos$ = this.todoService.getTodos$();
+  private getTodos(): void {
+    this.todos$ = this.todoService.todos$;
   }
 
-  public addTodo(text: string) {
-    if (text === '') {
+  public addTodo(text: string): void {
+    if (text === '' || this.editingTodo) {
       return;
     }
     this.todoService.addTodo(text);
   }
 
-  public changeStatus(todo: Todo) {
-    console.log(todo)
-    todo.isCompleted ? todo.uncomplete() : todo.complete();
-    console.log(todo)
+  public changeStatus(todo: Todo): void {
+    todo.isCompleted = !todo.isCompleted;
     this.todoService.updateTodo(todo);
   }
 
-  public removeTodo(todo: Todo) {
+  public editTodo(todo: Todo): void {
+    this.editingTodo = todo;
+    this.todoEdit.setValue(todo.text);
+  }
+
+  public onSubmitEditTodo(): void {
+    if (!this.editingTodo) {
+      return;
+    }
+    this.editingTodo.text = this.todoEdit.value;
+    this.todoService.updateTodo(this.editingTodo);
+    this.editingTodo = null;
+  }
+
+  public onCancelEditTodo(): void {
+    if (!this.editingTodo) {
+      return;
+    }
+    this.editingTodo = null;
+  }
+
+  public removeTodo(todo: Todo): void {
     this.todoService.removeTodoById(todo.id);
   }
 
-  public sortByCreatedDateAsc() {
+  public sortByCreatedDateAsc(): void {
     this.todoService.getSortedTodosByCreatedDate(OrderBy.ASC);
   }
 
-  public sortByCreatedDateDesc() {
+  public sortByCreatedDateDesc(): void {
     this.todoService.getSortedTodosByCreatedDate(OrderBy.DESC);
   }
 
-  public sortByComletedAsc() {
+  public sortByComletedAsc(): void {
     this.todoService.getSortedTodosByCompleted(OrderBy.ASC);
   }
 
-  public sortByComletedDesc() {
+  public sortByComletedDesc(): void {
     this.todoService.getSortedTodosByCompleted(OrderBy.DESC);
   }
 }

@@ -4,7 +4,7 @@
     flex-direction: column;
     padding: 60px 20px 60px 20px;
 
-    @media screen and (min-width: 400px) {
+    @media screen and (min-width: 380px) {
         padding: 60px 30px 60px 30px;
         transition-property: margin;
         transition-duration: .2s;
@@ -16,6 +16,153 @@
     }
 }
 
-.hover-cursor{
+$xs: 400px;
+$sm: 438px;
+$md: 475px;
+$lg: 511px; 
+$xl: 549px;
+
+$last-input-addon-border-radius: 0 6px 6px 0;
+$first-input-addon-border-radius: 6px 0 0 6px;
+
+ul {
+    list-style: none;
+}
+input {
+    padding: .8rem;
+    font-size: 1.4rem;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.banner {
+    font-size: 2rem;
+    color: var(--dark-color);
+    background-color: var(--light-color);
+    border-radius: 10px;
+}
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2rem 0 1rem 0;
+
+    .form-control {
+        max-height: 4rem;
+        min-height: 3rem;
+        display: flex;
+        border-radius: 10px 0 0 10px;
+        margin: .4rem 0;
+
+        @media screen and (max-width: $xs) { border-radius: 10px; }
+    }
+
+    @media screen and (max-width: $xs) { justify-content: center; }
+
+    &-addon {
+        display: flex;
+        margin: .4rem 0;
+        max-height: 4rem;
+        min-height: 3rem;
+        align-content: center;
+        justify-content: center;
+        background-color: var(--light-color);
+        font-size: 1.2rem;
+        padding: .4rem;
+        i {
+            align-self: center;
+            justify-self: center;
+        }
+        @media screen and (max-width: $xs) { justify-self: center; }
+    }
+
+    &-addon:active { background-color: var(--red-tr-color); }
+    &-addon:nth-child(6) { border-radius: $last-input-addon-border-radius; }
+
+    @media screen and (max-width: $xl) {
+        &-addon:nth-child(6) { border-radius: 6px; }
+        &-addon:nth-child(5) { border-radius: $last-input-addon-border-radius; }
+    }
+    @media screen and (max-width: $lg) {
+        &-addon:nth-child(6) { border-radius: $last-input-addon-border-radius; }
+        &-addon:nth-child(5) { border-radius: $first-input-addon-border-radius; }
+        &-addon:nth-child(4) { border-radius:$last-input-addon-border-radius; }
+    }
+    @media screen and (max-width: $md) {
+        &-addon:nth-child(6) { border-radius: $last-input-addon-border-radius; }
+        &-addon:nth-child(5) { border-radius: 0; }
+        &-addon:nth-child(4) { border-radius: $first-input-addon-border-radius; }
+        &-addon:nth-child(3) { border-radius:$last-input-addon-border-radius; }
+    }
+    @media screen and (max-width:  $sm) {
+        &-addon:nth-child(6) { border-radius: $last-input-addon-border-radius; }
+        &-addon:nth-child(5) { border-radius: 0; }
+        &-addon:nth-child(4) { border-radius: 0; }
+        &-addon:nth-child(3) { border-radius: $first-input-addon-border-radius; }
+        &-addon:nth-child(2) { border-radius:$last-input-addon-border-radius; }
+    }
+    @media screen and (max-width: $xs) {
+        &-addon:nth-child(6) { border-radius: $last-input-addon-border-radius; }
+        &-addon:nth-child(5) { border-radius: 0; }
+        &-addon:nth-child(4) { border-radius: 0; }
+        &-addon:nth-child(3) { border-radius: 0; }
+        &-addon:nth-child(2) { border-radius: $first-input-addon-border-radius; }
+        &-addon:nth-child(1) { border-radius:$last-input-addon-border-radius; }
+    }
+}
+
+.list-group {
+    &-item {
+        display: flex;
+        align-items: center;
+        padding: .4rem 1rem;
+        border: 1px solid var(--light-color);
+        margin-bottom: .5rem;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: var(--red-tr-color);
+            color: var(--light-color);
+        }
+        .content {
+            padding: 0 10px;
+            color: var(--dark-color);
+        }
+        .text-gray {
+            margin-left: auto;
+        }
+    }
+}
+
+.text-line-through {
+    text-decoration: line-through;
+    text-decoration-color: var(--light-green-color);
+}
+.text-success {
+    color: var(--light-green-color);
+    &:hover {
+        color: var(--light-color);
+    }
+}
+.text-danger {
+    color: var(--red-color);
+    &:hover {
+        color: var(--light-color);
+    }
+}
+.text-gray {
+    color: var(--gray-color);
+    &:hover {
+        color: var(--light-color);
+    }
+}
+.reverse-icon-y {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+.hover-cursor {
     cursor: pointer;
+}
+.text-center {
+    text-align: center;
 }

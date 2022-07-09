@@ -30,7 +30,7 @@ export class TodoService {
     return nextId || this._nextId;
   }
 
-  public getTodos$(): Observable<Todo[]> {
+  public get todos$(): Observable<Todo[]> {
     return this._todosSubject$.asObservable();
   }
 
@@ -62,7 +62,7 @@ export class TodoService {
     if (!todosEntities) {
       return []
     };
-    const todos: Todo[] = todosEntities.map((t: TodoEntity) => new Todo(t));
+    const todos: Todo[] = todosEntities.map((t: TodoEntity) => Todo.fromEntity(t));
     return todos;
   }
 
