@@ -36,6 +36,7 @@ export class TodoComponent implements OnInit {
       return;
     }
     this.todoService.addTodo(text);
+    this.todoAdd.setValue('');
   }
 
   public changeStatus(todo: Todo): void {
@@ -55,6 +56,7 @@ export class TodoComponent implements OnInit {
     this.editingTodo.text = this.todoEdit.value;
     this.todoService.updateTodo(this.editingTodo);
     this.editingTodo = null;
+    this.todoEdit.setValue('');
   }
 
   public onCancelEditTodo(): void {
