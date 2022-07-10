@@ -7,11 +7,11 @@ export class LocalStorageService {
 
   constructor() { }
 
-  set(key: string, value: any): void {
+  public set(key: string, value: any): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  get(key: string): any | null {
+  public get(key: string): any | null {
     const str: string | null = localStorage.getItem(key);
     if (!str) {
       return null;
@@ -28,7 +28,11 @@ export class LocalStorageService {
   //   return JSON.parse(str);
   // }
 
-  remove(key: string): void {
+  public remove(key: string): void {
     localStorage.removeItem(key);
+  }
+
+  public clear() {
+    localStorage.clear();
   }
 }
