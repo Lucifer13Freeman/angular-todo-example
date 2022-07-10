@@ -32,7 +32,7 @@ export class LocalStorageService {
     localStorage.removeItem(key);
   }
 
-  public clear() {
+  public clear(): void {
     localStorage.clear();
   }
 }
