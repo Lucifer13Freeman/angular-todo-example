@@ -9,6 +9,10 @@ nav {
         margin: 0 .6rem;
         color: var(--light-color);
         text-decoration: none;
+
+        &:hover {
+            color: var(--dark-color);
+        }
     }
 }
 

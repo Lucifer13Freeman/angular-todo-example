@@ -2,7 +2,7 @@
   <h4 class="text-center">To Do List</h4>
 </div>
 
-<div class="container" *ngIf="todos$ | async as todos">
+<div *ngIf="todos$ | async as todos">
   <form *ngIf="!editingTodo" class="input-group">
     <input [formControl]="todoAdd" 
       type="text"

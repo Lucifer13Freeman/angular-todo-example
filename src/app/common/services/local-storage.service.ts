@@ -19,6 +19,15 @@ export class LocalStorageService {
     return JSON.parse(str);
   }
 
+  // async getAsync(key: string): Promise<any | null> {
+  //   const str: string | null = await localStorage.getItem(key);
+  //   console.log(str)
+  //   if (!str) {
+  //     return null;
+  //   }
+  //   return JSON.parse(str);
+  // }
+
   remove(key: string): void {
     localStorage.removeItem(key);
   }

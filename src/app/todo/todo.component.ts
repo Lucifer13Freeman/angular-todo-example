@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { OrderBy } from 'src/app/common/enums/order-by.enum';
 import { Todo } from 'src/app/todo/models/todo.model';
@@ -18,8 +18,8 @@ export class TodoComponent implements OnInit {
   public todos$!: Observable<Todo[]>;
   public editingTodo: Todo | null = null;
 
-  public todoAdd: FormControl = new FormControl('');
-  public todoEdit: FormControl = new FormControl('');
+  public todoAdd: FormControl = new FormControl('', Validators.required);
+  public todoEdit: FormControl = new FormControl('', Validators.required);
 
   constructor(private readonly todoService: TodoService) { }
 

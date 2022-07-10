@@ -124,10 +124,10 @@ export class TodoService {
     const todos: Todo[] = this.getTodos();
     
     const sortedTodos: Todo[] = sort === OrderBy.DESC 
-    ?  [...todos].sort((a: Todo, b: Todo) =>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    : [...todos].sort((a: Todo, b: Todo) => 
-      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+      ? [...todos].sort((a: Todo, b: Todo) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      : [...todos].sort((a: Todo, b: Todo) => 
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
     
     this._todosSubject$.next(sortedTodos);
 
