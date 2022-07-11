@@ -23,7 +23,7 @@ export class TasksComponent implements OnInit {
     this.initModel();
   }
 
-  private initModel() {
+  private initModel(): void {
 
     const model: TasksModel = {
       date: this.dateService.date, 
