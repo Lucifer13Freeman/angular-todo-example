@@ -5,7 +5,9 @@
     <input formControlName="text" 
       type="text"
       class="form-control" 
-      placeholder="to do..."
+      [placeholder]="!error ? 'to do...' : 'input anything...'"
+      [class.error]="error"
+      (focus)="error = false"
       required
     />
     <button class="input-group-addon add hover-cursor"
@@ -14,22 +16,22 @@
       <i class="material-icons">add_circle</i>
     </button>
     <div class="input-group-addon add hover-cursor"
-      (click)="sortByCreatedDateAsc()"
+      (click)="sortByCreatedDate(ASK)"
     >
       <i class="material-icons reverse-icon-y">sort</i>
     </div>
     <div class="input-group-addon add hover-cursor"
-      (click)="sortByCreatedDateDesc()"
+      (click)="sortByCreatedDate(DESK)"
     >
       <i class="material-icons">sort</i>
     </div>
     <div class="input-group-addon add hover-cursor" 
-      (click)="sortByComletedAsc()"
+      (click)="sortByComleted(ASK)"
     >
       <i class="material-icons">check_circle</i>
     </div>
     <div class="input-group-addon add hover-cursor" 
-      (click)="sortByComletedDesc()"
+      (click)="sortByComleted(DESK)"
     >
       <i class="material-icons">radio_button_unchecked</i>
     </div>

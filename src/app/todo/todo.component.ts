@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { OrderBy } from 'src/app/common/enums/order-by.enum';
 import { Todo } from 'src/app/todo/models/todo.model';
 import { TodoService } from 'src/app/todo/services/todo.service';
 
