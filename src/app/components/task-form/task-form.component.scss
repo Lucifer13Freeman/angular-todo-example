@@ -1,0 +1,154 @@
+$xs: 400px;
+$sm: 438px;
+$md: 475px;
+$lg: 511px;
+$xl: 549px;
+
+$last-input-addon-border-radius: 0 0.3rem 0.3rem 0;
+$first-input-addon-border-radius: 0.3rem 0 0 0.3rem;
+
+input {
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.banner {
+  font-size: 2rem;
+  color: var(--dark-color);
+  background-color: var(--light-color);
+  border-radius: 0.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+
+  .form-control {
+    max-height: 4rem;
+    min-height: 3rem;
+    min-width: 15rem;
+    display: flex;
+    border-radius: 0.5rem 0 0 0.5rem;
+    margin: 0.4rem 0;
+
+    @media screen and (max-width: $xs) {
+      border-radius: 0.5rem;
+    }
+    &.error::placeholder {
+      color: var(--red-color);
+    }
+  }
+
+  @media screen and (max-width: $xs) {
+    justify-content: center;
+  }
+
+  &-addon {
+    display: flex;
+    margin: 0.4rem 0;
+    max-height: 4rem;
+    min-height: 3rem;
+    align-content: center;
+    justify-content: center;
+    background-color: var(--light-color);
+    font-size: 1.2rem;
+    padding: 0.4rem;
+    border: 0;
+    cursor: pointer;
+
+    i {
+      align-self: center;
+      justify-self: center;
+    }
+    @media screen and (max-width: $xs) {
+      justify-self: center;
+    }
+  }
+
+  &-addon:active {
+    background-color: var(--red-tr-color);
+  }
+
+  &-addon:nth-child(6) {
+    border-radius: $last-input-addon-border-radius;
+  }
+
+  @media screen and (max-width: $xl) {
+    &-addon:nth-child(6) {
+      border-radius: 0.3rem;
+    }
+    &-addon:nth-child(5) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $lg) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(4) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $md) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(4) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(3) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $sm) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(4) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(3) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(2) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $xs) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(4) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(3) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(2) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(1) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+}
+.reverse-icon-y {
+  -moz-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+}

@@ -1,0 +1,56 @@
+<li class="list-group-item" *ngIf="task">
+
+    <div *ngIf="!isEditing" class="container">
+        <i class="hover-cursor material-icons"
+            [class.text-success]="task.isCompleted"
+            (click)="changeStatus()"
+        >
+        {{ task.isCompleted ? "check_circle" : "radio_button_unchecked" }}
+        </i>
+        <div class="content">
+            <div class="text" [class.text-line-through]="task.isCompleted">
+                {{ task.text }}
+            </div>
+
+            <details class="hover-cursor">
+                <summary>Дата</summary>
+                <div>
+                    Создано: {{ task.createdAt | date: "dd.MM.yyyy hh:mm" }}
+                </div>
+                <div>
+                    Изменено: {{ task.updatedAt | date: "dd.MM.yyyy hh:mm" }}
+                </div>
+                <div *ngIf="task.completedAt">
+                    Завершено: {{ task.completedAt | date: "dd.MM.yyyy hh:mm" }}
+                </div>
+            </details>
+        </div>
+        <i class="hover-cursor text-gray left material-icons" 
+            (click)="edit()">edit</i>
+        <i class="hover-cursor text-danger material-icons"
+            (click)="remove()">delete</i>
+    </div>
+
+    <form *ngIf="isEditing" 
+        class="container"
+        (ngSubmit)="submit()" 
+        [formGroup]="editForm" 
+    >
+        <input formControlName="text" 
+            type="text" 
+            class="form-control"
+            #editInput
+        />
+        {{ editInput.focus() }}
+        <button class="input-group-addon left hover-cursor"
+            type="submit"
+        >
+            <i class="material-icons text-success">check_circle</i>
+        </button>
+        <button class="input-group-addon hover-cursor"
+            type="reset" (click)="reset()" 
+        >
+            <i class="material-icons text-danger">cancel</i>
+        </button>
+    </form>
+</li>

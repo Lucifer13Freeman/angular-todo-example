@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './common/components/not-found/not-found.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { OrganizerComponent } from './components/organizer/organizer.component';
+import { TodoComponent } from './components/todo/todo.component';
 
 
 const routes: Routes = [  
   { path: '', redirectTo: '/todo', pathMatch: 'full' },
-  { path: 'todo', loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule) },
-  { path: 'organizer', loadChildren: () => import('./organizer/organizer.module').then(m => m.OrganizerModule) },
+  { path: 'todo', component: TodoComponent },
+  { path: 'calendar', component: OrganizerComponent },
   { path: '**', component: NotFoundComponent  },
 ];
 
