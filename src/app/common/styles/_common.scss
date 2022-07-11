@@ -1,0 +1,40 @@
+ul {
+  list-style: none;
+}
+input {
+  font-size: 1rem;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.left {
+  margin-left: auto;
+}
+.text-line-through {
+  text-decoration: line-through;
+  text-decoration-color: var(--light-green-color);
+}
+.text-success {
+  color: var(--light-green-color);
+  &:hover {
+    color: var(--light-color);
+  }
+}
+.text-danger {
+  color: var(--red-color);
+  &:hover {
+    color: var(--light-color);
+  }
+}
+.text-gray {
+  color: var(--gray-color);
+  &:hover {
+    color: var(--light-color);
+  }
+}
+.hover-cursor {
+  cursor: pointer;
+}
+.text-center {
+  text-align: center;
+}

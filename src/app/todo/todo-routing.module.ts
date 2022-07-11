@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from '../common/components/dumb/not-found/not-found.component';
 import { TodoComponent } from './todo.component';
 
 const routes: Routes = [
-  { path: '', component: TodoComponent },
-  { path: '**', component: NotFoundComponent  },
+  { path: '', component: TodoComponent }
 ];
 
 @NgModule({

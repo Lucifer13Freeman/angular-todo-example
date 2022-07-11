@@ -14,12 +14,16 @@ export class DateService
         return this.dateSubject$.asObservable();
     }
 
-    changeMonth(step: number) {
+    get date(): moment.Moment {
+        return this.dateSubject$.value;
+    }
+
+    public changeMonth(step: number) {
         const val = this.dateSubject$.value.add(step, 'month');
         this.dateSubject$.next(val);
     }
 
-    changeDate(date: moment.Moment) {
+    public changeDate(date: moment.Moment) {
         const val = this.dateSubject$.value.set({
             date: date.date(),
             month: date.month()

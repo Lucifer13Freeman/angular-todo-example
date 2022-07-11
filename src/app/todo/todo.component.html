@@ -1,87 +1,11 @@
-<div class="banner" style="padding: 45px 0px">
+<div class="banner">
   <h4 class="text-center">To Do List</h4>
 </div>
 
-<div *ngIf="todos$ | async as todos">
-  <form *ngIf="!editingTodo" class="input-group">
-    <input [formControl]="todoAdd" 
-      type="text"
-      class="form-control" 
-      placeholder="to do..."
-    />
-    <div class="input-group-addon add hover-cursor"
-      (click)="addTodo(todoAdd.value)"
-    >
-      <i class="material-icons">add_circle</i>
-    </div>
-    <div class="input-group-addon add hover-cursor"
-      (click)="sortByCreatedDateAsc()"
-    >
-      <i class="material-icons reverse-icon-y">sort</i>
-    </div>
-    <div class="input-group-addon add hover-cursor"
-      (click)="sortByCreatedDateDesc()"
-    >
-      <i class="material-icons">sort</i>
-    </div>
-    <div class="input-group-addon add hover-cursor" 
-      (click)="sortByComletedAsc()"
-    >
-      <i class="material-icons">check_circle</i>
-    </div>
-    <div class="input-group-addon add hover-cursor" 
-      (click)="sortByComletedDesc()"
-    >
-      <i class="material-icons">radio_button_unchecked</i>
-    </div>
-  </form>
+<div>
+  <app-todo-form></app-todo-form>
 
-  <form *ngIf="editingTodo" class="input-group">
-    <input [formControl]="todoEdit" type="text" class="form-control" />
-    <div class="input-group-addon edit hover-cursor" 
-      (click)="onSubmitEditTodo()"
-    >
-      <i class="material-icons">check_circle</i>
-    </div>
-    <div class="input-group-addon edit hover-cursor" 
-      (click)="onCancelEditTodo()"
-    >
-      <i class="material-icons">cancel</i>
-    </div>
-  </form>
-
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let todo of todos">
-      <i
-        class="hover-cursor material-icons"
-        [class.text-success]="todo.isCompleted"
-        (click)="changeStatus(todo)"
-      >
-        {{ todo.isCompleted ? "check_circle" : "radio_button_unchecked" }}
-      </i>
-      <div class="content">
-        <div class="text" [class.text-line-through]="todo.isCompleted">
-          {{ todo.text }}
-        </div>
-
-        <details class="hover-cursor">
-          <summary>Date</summary>
-          <div>
-            Created: {{ todo.createdAt | date: "dd.MM.yyyy hh:mm" }}
-          </div>
-          <div>
-            Updated: {{ todo.updatedAt | date: "dd.MM.yyyy hh:mm" }}
-          </div>
-          <div *ngIf="todo.completedAt">
-            Completed: {{ todo.completedAt | date: "dd.MM.yyyy hh:mm" }}
-          </div>
-        </details>
-
-      </div>
-      <i class="hover-cursor text-gray material-icons" 
-        (click)="editTodo(todo)">edit</i>
-      <i class="hover-cursor text-danger material-icons"
-        (click)="removeTodo(todo)">delete</i>
-    </li>
+  <ul *ngIf="todos$ | async as todos">
+    <app-todo-item *ngFor="let todo of todos" [todo]="todo"></app-todo-item>
   </ul>
 </div>

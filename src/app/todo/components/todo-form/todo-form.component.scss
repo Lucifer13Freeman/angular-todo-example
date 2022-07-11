@@ -1,0 +1,144 @@
+@use '../../../common/styles/common';
+
+$xs: 400px;
+$sm: 438px;
+$md: 475px;
+$lg: 511px;
+$xl: 549px;
+
+$last-input-addon-border-radius: 0 6px 6px 0;
+$first-input-addon-border-radius: 6px 0 0 6px;
+
+input {
+  padding: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.banner {
+  font-size: 2rem;
+  color: var(--dark-color);
+  background-color: var(--light-color);
+  border-radius: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem 0 1rem 0;
+
+  .form-control {
+    max-height: 4rem;
+    min-height: 3rem;
+    display: flex;
+    border-radius: 10px 0 0 10px;
+    margin: 0.4rem 0;
+
+    @media screen and (max-width: $xs) {
+      border-radius: 10px;
+    }
+  }
+
+  @media screen and (max-width: $xs) {
+    justify-content: center;
+  }
+
+  &-addon {
+    display: flex;
+    margin: 0.4rem 0;
+    max-height: 4rem;
+    min-height: 3rem;
+    align-content: center;
+    justify-content: center;
+    background-color: var(--light-color);
+    font-size: 1.2rem;
+    padding: 0.4rem;
+    border: 0;
+
+    i {
+      align-self: center;
+      justify-self: center;
+    }
+    @media screen and (max-width: $xs) {
+      justify-self: center;
+    }
+  }
+
+  &-addon:active {
+    background-color: var(--red-tr-color);
+  }
+
+  &-addon:nth-child(6) {
+    border-radius: $last-input-addon-border-radius;
+  }
+
+  @media screen and (max-width: $xl) {
+    &-addon:nth-child(6) {
+      border-radius: 6px;
+    }
+    &-addon:nth-child(5) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $lg) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(4) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $md) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(4) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(3) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $sm) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(4) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(3) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(2) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+  @media screen and (max-width: $xs) {
+    &-addon:nth-child(6) {
+      border-radius: $last-input-addon-border-radius;
+    }
+    &-addon:nth-child(5) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(4) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(3) {
+      border-radius: 0;
+    }
+    &-addon:nth-child(2) {
+      border-radius: $first-input-addon-border-radius;
+    }
+    &-addon:nth-child(1) {
+      border-radius: $last-input-addon-border-radius;
+    }
+  }
+}

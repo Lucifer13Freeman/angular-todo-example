@@ -2,120 +2,80 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OrderBy } from 'src/app/common/enums/order-by.enum';
 import { LocalStorageService } from 'src/app/common/services/local-storage.service';
-import { TodoEntity } from '../entities/todo.entity';
+import { ITodo } from '../interfaces/todo.interface';
 import { Todo } from '../models/todo.model';
 
 
 @Injectable()
 export class TodoService {
 
-  private storageKey: string = 'todo';
-  private nextIdStorageKey: string = 'nextId';
-
-  private _nextId: number = 0;
+  private KEY: string = 'todo';
+  private NEXT_ID_KEY: string = 'nextId';
   private _todosSubject$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
 
-  constructor(private readonly storageService: LocalStorageService) {
-    this._nextId = this.getNextId();
-    this._todosSubject$.next(this.getTodos());
-  }
-
-  private getNextId(): number {
-    if (this._nextId > 0) {
-      return this._nextId;
-    }
-    const nextId = this.storageService.get(this.nextIdStorageKey);
-    return nextId || this._nextId;
-  }
+  constructor(private readonly storageService: LocalStorageService) {}
 
   public get todos$(): Observable<Todo[]> {
     return this._todosSubject$.asObservable();
   }
 
   public getTodos(): Todo[] {
-
-    if (this._todosSubject$.value.length > 0) {
-      return this._todosSubject$.value;
-    }
     this._todosSubject$.next(this.getTodosFromStorage());
-  
     return this._todosSubject$.value;
   }
 
-  public getTodoById(id: number): Todo | null {
-    const todos: Todo[] = this.getTodos();
-    let todo: Todo | null = null;
-
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].id === id) {
-        todo = todos[i];
-      }
-    }
-
-    return todo;
+  public getTodoById(id: number): Todo | undefined {
+    return this.getTodos().find((t: Todo) => t.id === id);
   }
 
   public getTodosFromStorage(): Todo[] {
-    const todosEntities: TodoEntity[] | null = this.storageService.get(this.storageKey);
-    if (!todosEntities) {
-      return []
-    };
-    const todos: Todo[] = todosEntities.map((t: TodoEntity) => Todo.fromEntity(t));
-    return todos;
+    const todos: ITodo[] | null = this.storageService.get(this.KEY);
+    return todos ? todos.map((t: ITodo) => new Todo(t)) : [];
   }
 
   private setTodosToStorage(todos: Todo[]): Todo[] {
-    const todosEntities: TodoEntity[] = todos.map((t: Todo) => t.toEntity());
-    this.storageService.set(this.storageKey, todosEntities);
+    const todosEntities: ITodo[] = todos.map((t: Todo) => t.toEntity());
+    this.storageService.set(this.KEY, todosEntities);
     return todos;
   }
 
   public addTodo(text: string): Todo {
     const todos: Todo[] = this.getTodos();
-    const todo = new Todo({ id: this._nextId, text });
+    let nextId = this.storageService.get(this.NEXT_ID_KEY);
 
+    const todo = new Todo({ id: nextId, text });
     todos.push(todo);
 
     this._todosSubject$.next(todos);
     this.setTodosToStorage(todos);
 
-    this._nextId++;
-    this.storageService.set(this.nextIdStorageKey, this._nextId);
+    nextId++;
+    this.storageService.set(this.NEXT_ID_KEY, nextId);
 
     return todo;
   }
 
   public updateTodo(todo: Todo): Todo | null {
 
-    const foundTodo: Todo | null = this.getTodoById(todo.id);
+    const todos: Todo[] = this.getTodos();
+    const idx: number = todos.findIndex((t: Todo) => t.id === todo.id);
 
-    if (!foundTodo) {
+    if (idx === -1) {
       return null;
     }
-
-    const todos: Todo[] = this.getTodos();
-
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].id === foundTodo.id) {
-        todos[i] = todo;
-      }
-    }
-
+    
+    todos[idx] = todo;
     this._todosSubject$.next(todos);
     this.setTodosToStorage(todos);
-    this._nextId++;
 
     return todo;
   }
 
   public removeTodoById(id: number): Todo[] {
-    const todos: Todo[] = this.getTodos();
-    const filteredTodos: Todo[] = todos.filter((todo)=> todo.id !== id);
-
-    this._todosSubject$.next(filteredTodos);
-    this.setTodosToStorage(filteredTodos);
-
-    return filteredTodos;
+    const todos: Todo[] = this.getTodos().filter((todo)=> todo.id !== id);
+    this._todosSubject$.next(todos);
+    this.setTodosToStorage(todos);
+    return todos;
   }
 
   public getSortedTodosByCreatedDate(sort: OrderBy = OrderBy.ASC): Todo[] {

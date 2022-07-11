@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'to-do';
 
   public ngOnInit(): void {
-    moment.updateLocale('en', {
+    moment.updateLocale('ru', {
       week: {
         dow: 1
       }

@@ -1,6 +1,6 @@
 <div class="container" *ngIf="model$ | async as model">
     <header>
-        Tasks: <strong>{{ model.date$ | async | moment:'DD.MM.YYYY' }}</strong>
+        Tasks: <strong>{{ model.date | moment:'DD.MM.YYYY' }}</strong>
         <hr/>
     </header>
 

@@ -1,4 +1,3 @@
-import { TodoEntity } from "../entities/todo.entity";
 import { ITodo } from "../interfaces/todo.interface";
 
 
@@ -11,17 +10,13 @@ export class Todo {
     private _updatedAt: Date;
     private _completedAt: Date | null;
   
-    constructor({ 
-        id, text, isCompleted, 
-        createdAt, updatedAt, completedAt 
-    }: ITodo) {
-
-        this._id = id;
-        this._text = text;
-        this._isCompleted = isCompleted ?? false;
-        this._createdAt = createdAt ?? new Date();
-        this._updatedAt = updatedAt ?? new Date();
-        this._completedAt = completedAt ?? null;
+    constructor(todo: ITodo) {
+        this._id = todo.id;
+        this._text = todo.text;
+        this._isCompleted = todo.isCompleted ?? false;
+        this._createdAt = todo.createdAt ?? new Date();
+        this._updatedAt = todo.updatedAt ?? new Date();
+        this._completedAt = todo.completedAt ?? null;
     }
 
     get id(): number { 
@@ -53,12 +48,8 @@ export class Todo {
         this._completedAt = isCompleted ? new Date() : null;
     }
 
-    static fromEntity(entity: TodoEntity): Todo {
-        return new this(entity);
-    } 
-
-    public toEntity(): TodoEntity {
-        const entity: TodoEntity = {
+    public toEntity(): ITodo {
+        return {
             id: this._id,
             text: this._text,
             isCompleted: this._isCompleted,
@@ -66,6 +57,5 @@ export class Todo {
             updatedAt: this._updatedAt,
             completedAt: this._completedAt
         }
-        return entity;
     }
 }

@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, 
-        Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { IWeek } from '../../interfaces/week.interface';
 import { DateService } from '../../services/date.service';
 
@@ -12,14 +11,12 @@ import { DateService } from '../../services/date.service';
   styleUrls: ['./calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CalendarComponent implements OnInit, OnDestroy {
+export class CalendarComponent implements OnInit {
 
   public date$!: Observable<moment.Moment>;
   public calendar: IWeek[] = [];
-  private destroyed$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private readonly dateService: DateService,
-              private readonly changeDetector: ChangeDetectorRef) { }
+  constructor(private readonly dateService: DateService) { }
 
   public ngOnInit(): void {
     this.getDate();
@@ -27,22 +24,16 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   private getDate(): void {
     this.date$ = this.dateService.date$.pipe(
-      takeUntil(this.destroyed$)
+      tap((date: moment.Moment) => this.getMonth(date))
     );
-    this.date$.subscribe({
-      next: (date: moment.Moment) => {
-        this.getMonth(date);
-        this.changeDetector.detectChanges();
-      }
-    });
   }
 
   public getMonth(now: moment.Moment) {
 
-    const startDay = now.clone().startOf('month').startOf('week');
-    const endDay = now.clone().endOf('month').endOf('week');
+    const startDay: moment.Moment = now.clone().startOf('month').startOf('week');
+    const endDay: moment.Moment = now.clone().endOf('month').endOf('week');
 
-    const date = startDay.clone().subtract(1, 'day');
+    const date: moment.Moment = startDay.clone().subtract(1, 'day');
 
     const calendar: IWeek[] = [];
 
@@ -62,8 +53,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
         }
       });
 
-      // days = [...days.slice(1), ...days.slice(0, 1)];
-
       calendar.push({ days } as unknown as IWeek);
     }
 
@@ -72,10 +61,5 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   public select(day: moment.Moment) {
     this.dateService.changeDate(day);
-  }
-
-  public ngOnDestroy(): void {
-    this.destroyed$.next(true);
-    this.destroyed$.complete();
   }
 }

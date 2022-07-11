@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { map, Observable, of, Subject, Subscription, switchMap, takeUntil } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { ITask } from '../../interfaces/task.interface';
 import { DateService } from '../../services/date.service';
 import { TasksService } from '../../services/tasks.service';
@@ -18,15 +18,7 @@ import { TasksModel } from './models/tasks.model';
 export class TasksComponent implements OnInit {
 
   public form!: FormGroup;
-  public date!: moment.Moment;
-  // public tasks: ITask[] = [];
-
   public model$!: Observable<TasksModel>;
-  // public model!: TasksModel;
-
-  // public tasks$!: Observable<ITask[]>;
-  // public date$!: Observable<moment.Moment>;
-  // private destroyed$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private readonly dateService: DateService,
               private readonly tasksService: TasksService) { }
@@ -37,72 +29,30 @@ export class TasksComponent implements OnInit {
       text: new FormControl('', Validators.required)
     });
 
-    // this.getDate();
-    // this.getTasks();
     this.initModel();
   }
 
   private initModel() {
 
     const model: TasksModel = {
-      date$: this.dateService.date$, 
-      tasks$: this.tasksService.tasks$
+      date: this.dateService.date, 
+      tasks$: this.dateService.date$
+      .pipe(
+        switchMap((date: moment.Moment) => this.tasksService.getTasks$(date))
+      )
     }
-
-    model.date$.pipe(
-        // takeUntil(this.destroyed$),
-      //   // switchMap(date => this.tasksService.getTasks(date))
-    ).subscribe({
-      next: (date: moment.Moment) => {
-        this.date = date;
-        this.tasksService.getTasks(this.date);
-      }
-    });
-
-    // model.date$.pipe(
-    //   takeUntil(this.destroyed$),
-    //   switchMap(date => this.tasksService.getTasks$(date))
-    // )
-    // .subscribe({
-    //   next: tasks => {
-    //     this.tasks = tasks
-    //   }
-    // });
-
-    // model.tasks$.subscribe((tasks) => console.log(tasks));
 
     this.model$ = of(model);
   }
 
-  // private getTasks(): void {
-  //   this.tasks$ = this.tasksService.tasks$;
-  // }
-
-  // private getDate(): void {
-  //   this.dateService.date$.pipe(
-  //     takeUntil(this.destroyed$),
-  //     // switchMap(date => this.tasksService.getTasks(date))
-  //   ).subscribe({
-  //     next: (date: moment.Moment) => {
-  //       this.date = date;
-  //       this.tasksService.getTasks(date);
-  //     }
-  //   });
-  // }
-
-  // public ngOnDestroy(): void {
-  //   this.destroyed$.next(true);
-  //   this.destroyed$.complete();
-  // }
-
   public submit() {
 
     const { text } = this.form.value;
-    const date = this.date.format('DD-MM-YYYY');
+    const date: moment.Moment = this.dateService.date;
 
     const task: ITask = {
       text,
-      date
+      date: date.format('DD-MM-YYYY')
     }
 
     this.tasksService.addTask(task);

@@ -1,0 +1,36 @@
+<form (ngSubmit)="addTodo()"
+    class="input-group" 
+    [formGroup]="addForm"
+  >
+    <input formControlName="text" 
+      type="text"
+      class="form-control" 
+      placeholder="to do..."
+      required
+    />
+    <button class="input-group-addon add hover-cursor"
+      type="submit"
+    >
+      <i class="material-icons">add_circle</i>
+    </button>
+    <div class="input-group-addon add hover-cursor"
+      (click)="sortByCreatedDateAsc()"
+    >
+      <i class="material-icons reverse-icon-y">sort</i>
+    </div>
+    <div class="input-group-addon add hover-cursor"
+      (click)="sortByCreatedDateDesc()"
+    >
+      <i class="material-icons">sort</i>
+    </div>
+    <div class="input-group-addon add hover-cursor" 
+      (click)="sortByComletedAsc()"
+    >
+      <i class="material-icons">check_circle</i>
+    </div>
+    <div class="input-group-addon add hover-cursor" 
+      (click)="sortByComletedDesc()"
+    >
+      <i class="material-icons">radio_button_unchecked</i>
+    </div>
+</form>
