@@ -11,6 +11,10 @@ a {
     }
 }
 
+main {
+    overflow-x: auto;
+}
+
 .container {
     max-width: 1100px;
     margin: auto;

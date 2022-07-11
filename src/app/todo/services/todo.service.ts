@@ -6,9 +6,7 @@ import { TodoEntity } from '../entities/todo.entity';
 import { Todo } from '../models/todo.model';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TodoService {
 
   private storageKey: string = 'todo';

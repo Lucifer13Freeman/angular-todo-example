@@ -6,9 +6,7 @@ import { LocalStorageService } from "src/app/common/services/local-storage.servi
 import { ITasksCollection } from "../interfaces/tasks-collection.interface";
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class TasksService {
 
     private storageKey: string = 'task';
