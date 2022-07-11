@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  public getMonth(now: moment.Moment) {
+  public getMonth(now: moment.Moment): void {
 
     const startDay: moment.Moment = now.clone().startOf('month').startOf('week');
     const endDay: moment.Moment = now.clone().endOf('month').endOf('week');
@@ -59,7 +59,7 @@ export class CalendarComponent implements OnInit {
     this.calendar = calendar;
   }
 
-  public select(day: moment.Moment) {
+  public select(day: moment.Moment): void {
     this.dateService.changeDate(day);
   }
 }
