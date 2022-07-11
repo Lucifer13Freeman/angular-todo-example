@@ -2,15 +2,6 @@ header {
     padding: 1rem 2rem;
 }
 
-a {
-    color: var(--red-color);
-    text-decoration: none;
-
-    &:hover {
-        color: 666;
-    }
-}
-
 main {
     overflow-x: auto;
     padding: .4rem;
@@ -25,8 +16,4 @@ main {
     margin: auto;
     overflow: hidden;
     padding: 0 2rem;
-}
-
-.text-center {
-    text-align: center;
 }
