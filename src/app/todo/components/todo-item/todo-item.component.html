@@ -37,7 +37,13 @@
         [formGroup]="editForm" 
         *ngIf="isEditing"
     >
-        <input formControlName="text" type="text" class="form-control"/>
+        <input formControlName="text" 
+            type="text" 
+            class="form-control"
+            (blur)="reset()"
+            #editInput
+        />
+        {{ editInput.focus() }}
         <button class="input-group-addon left hover-cursor"
             type="submit"
         >
