@@ -8,6 +8,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SelectorComponent } from './components/selector/selector.component';
 import { MomentPipe } from './pipes/moment.pipe';
+import { DateService } from './services/date.service';
 
 
 @NgModule({
@@ -23,6 +24,9 @@ import { MomentPipe } from './pipes/moment.pipe';
     OrganizerRoutingModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    DateService
   ],
   bootstrap: [
     OrganizerComponent

@@ -3,9 +3,7 @@ import * as moment from "moment";
 import { BehaviorSubject, Observable } from "rxjs";
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class DateService 
 {
     private dateSubject$: BehaviorSubject<moment.Moment> = new BehaviorSubject<moment.Moment>(moment());

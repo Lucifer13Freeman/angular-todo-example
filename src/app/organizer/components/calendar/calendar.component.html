@@ -1,5 +1,5 @@
 <table *ngIf="date$ | async as date">
-    <thead class="section section-step">
+    <thead>
         <tr>
             <th>Mon</th>
             <th>Tue</th>
@@ -11,7 +11,7 @@
         </tr>
     </thead>
 
-    <tbody >
+    <tbody>
         <tr *ngFor="let week of calendar">
             <td 
                 *ngFor="let day of week.days"
