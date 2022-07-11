@@ -5,9 +5,10 @@
     <input formControlName="text" 
       type="text"
       class="form-control" 
-      [placeholder]="!error ? 'to do...' : 'input anything...'"
+      [placeholder]="!error ? 'сделать...' : 'введите что-нибудь...'"
       [class.error]="error"
       (focus)="error = false"
+      (blur)="error = false"
       required
     />
     <button class="input-group-addon add hover-cursor"

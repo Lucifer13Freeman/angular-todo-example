@@ -6,18 +6,15 @@ table {
     border-spacing: 0;
 
     td, th {
-        // border: 1px solid #000;
         padding: .5rem 1rem;
     }
 
     thead {
-        // border-top: 1px solid transparent;
         border-radius: .5rem .5rem 0 0;
         box-shadow: 0 0 0 1px #000;
     }
 
     tbody {
-        // border-bottom: 1px solid transparent;
         border-radius:  0 0 .5rem .5rem;
         box-shadow: 0 0 0 1px #000;
     }

@@ -13,15 +13,15 @@
         </div>
 
         <details class="hover-cursor">
-            <summary>Date</summary>
+            <summary>Дата</summary>
             <div>
-                Created: {{ todo.createdAt | date: "dd.MM.yyyy hh:mm" }}
+                Создано: {{ todo.createdAt | date: "dd.MM.yyyy hh:mm" }}
             </div>
             <div>
-                Updated: {{ todo.updatedAt | date: "dd.MM.yyyy hh:mm" }}
+                Изменено: {{ todo.updatedAt | date: "dd.MM.yyyy hh:mm" }}
             </div>
             <div *ngIf="todo.completedAt">
-                Completed: {{ todo.completedAt | date: "dd.MM.yyyy hh:mm" }}
+                Завершено: {{ todo.completedAt | date: "dd.MM.yyyy hh:mm" }}
             </div>
         </details>
 
