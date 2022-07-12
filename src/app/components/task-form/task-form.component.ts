@@ -17,9 +17,6 @@ export class TaskFormComponent implements OnInit {
   public ASK: OrderBy = OrderBy.ASC;
   public DESK: OrderBy = OrderBy.DESC;
 
-  @Input()
-  public date: moment.Moment = moment();
-
   public error: boolean = false;
   public addForm!: FormGroup;
 
