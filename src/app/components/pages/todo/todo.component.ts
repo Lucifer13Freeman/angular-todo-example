@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SelectorTypeEnum } from 'src/app/components/selector/enums/selector.enum';
+import { SelectorTypeEnum } from '../../date/selector/enums/selector.enum';
 
 
 @Component({

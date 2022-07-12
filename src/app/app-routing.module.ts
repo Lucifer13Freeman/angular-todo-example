@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { OrganizerComponent } from './components/organizer/organizer.component';
-import { TodoComponent } from './components/todo/todo.component';
+import { NotFoundComponent } from './components/common/not-found/not-found.component';
+import { OrganizerComponent } from './components/pages/organizer/organizer.component';
+import { TodoComponent } from './components/pages/todo/todo.component';
 
 
 const routes: Routes = [  

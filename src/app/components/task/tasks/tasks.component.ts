@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, of, switchMap } from 'rxjs';
-import { DateService } from '../../services/date.service';
-import { TasksService } from '../../services/tasks.service';
-import { TasksModel } from '../../models/tasks.model';
+import { DateService } from '../../../services/date.service';
+import { TasksService } from '../../../services/tasks.service';
+import { TasksModel } from '../../../models/tasks.model';
 
 
 @Component({
