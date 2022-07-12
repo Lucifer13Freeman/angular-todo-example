@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { OrderBy } from 'src/app/enums/order-by.enum';
-import { DateService } from 'src/app/services/date.service';
 import { TasksService } from 'src/app/services/tasks.service';
 
 
@@ -17,11 +16,13 @@ export class TaskFormComponent implements OnInit {
   public ASK: OrderBy = OrderBy.ASC;
   public DESK: OrderBy = OrderBy.DESC;
 
+  @Input()
+  public date!: moment.Moment;
+
   public error: boolean = false;
   public addForm!: FormGroup;
 
-  constructor(private readonly tasksService: TasksService,
-              private readonly dateService: DateService) { }
+  constructor(private readonly tasksService: TasksService) { }
 
   public ngOnInit(): void {
     this.addForm = new FormGroup({
@@ -34,20 +35,17 @@ export class TaskFormComponent implements OnInit {
       this.error = true;
       return;
     }
-    const date: string = this.dateService.date.format('DD-MM-YYYY');
     const { text } = this.addForm.value;
 
-    this.tasksService.addTask(text, date);
+    this.tasksService.addTask(text, this.date.format('DD-MM-YYYY'));
     this.addForm.reset();
   }
   
   public sortByCreatedDate(orderBy: OrderBy): void {
-    const date: string = this.dateService.date.format('DD-MM-YYYY');
-    this.tasksService.getSortedTasksByCreatedDate(date, orderBy);
+    this.tasksService.getSortedTasksByCreatedDate(this.date.format('DD-MM-YYYY'), orderBy);
   }
 
   public sortByComleted(orderBy: OrderBy): void {
-    const date: string = this.dateService.date.format('DD-MM-YYYY');
-    this.tasksService.getSortedTodosByCompleted(date, orderBy);
+    this.tasksService.getSortedTodosByCompleted(this.date.format('DD-MM-YYYY'), orderBy);
   }
 }
