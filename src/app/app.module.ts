@@ -16,6 +16,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { OrganizerComponent } from './components/organizer/organizer.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { SelectorComponent } from './components/selector/selector.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { SelectorComponent } from './components/selector/selector.component';
     OrganizerComponent,
     ErrorComponent,
     NotFoundComponent,
-    MomentPipe
+    MomentPipe,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
