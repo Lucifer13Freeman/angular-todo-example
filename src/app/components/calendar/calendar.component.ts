@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, tap } from 'rxjs';
+import { IDay } from 'src/app/interfaces/day.interface';
 import { IWeek } from '../../interfaces/week.interface';
 import { DateService } from '../../services/date.service';
 
@@ -37,13 +38,13 @@ export class CalendarComponent implements OnInit {
 
     const calendar: IWeek[] = [];
 
-    while (date.isBefore(endDay, 'day'))
-    {
-      let days = new Array(7).fill(0).map(() => {
-        const value = date.add(1, 'day').clone();
-        const isActive = moment().isSame(value, 'date');
-        const isDisabled = !now.isSame(value, 'month');
-        const isSelected = now.isSame(value, 'day');
+    while (date.isBefore(endDay, 'day')) {
+
+      let days: IDay[] = new Array(7).fill(0).map(() => {
+        const value: moment.Moment = date.add(1, 'day').clone();
+        const isActive: boolean = moment().isSame(value, 'date');
+        const isDisabled: boolean = !now.isSame(value, 'month');
+        const isSelected: boolean = now.isSame(value, 'day');
 
         return { 
           value,
@@ -53,7 +54,7 @@ export class CalendarComponent implements OnInit {
         }
       });
 
-      calendar.push({ days } as unknown as IWeek);
+      calendar.push({ days });
     }
 
     this.calendar = calendar;
