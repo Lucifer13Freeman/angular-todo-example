@@ -27,8 +27,7 @@ export class TasksComponent implements OnInit {
 
     const model: TasksModel = {
       date: this.dateService.date, 
-      tasks$: this.dateService.date$
-      .pipe(
+      tasks$: this.dateService.date$.pipe(
         switchMap((date: moment.Moment) => this.tasksService.getTasks$(date))
       )
     }
