@@ -1,0 +1,4 @@
+<div *ngIf="date$ | async as date">
+    <app-selector [type]="selectorType" format="DD.MM.YYYY"></app-selector>
+    <app-chart [data]="data"></app-chart>
+</div>
