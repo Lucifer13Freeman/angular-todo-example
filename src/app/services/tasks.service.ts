@@ -23,8 +23,7 @@ export class TasksService {
     }
 
     public getTasks$(date: moment.Moment): Observable<Task[]> {
-        const tasksCollection: ITasksCollection = this.getTasksFromStorage(date.format('DD-MM-YYYY'));
-        this._tasksSubject$.next(tasksCollection.tasks);
+        this.getTasks(date);
         return this._tasksSubject$;
     }
 
