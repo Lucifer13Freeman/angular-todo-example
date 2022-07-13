@@ -66,7 +66,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
             "#1fc8f8",
             "#d47c84"
           ],
-          // fill: true,
+          fill: true,
           borderRadius: 10,
         }
       ]
@@ -86,8 +86,20 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
           animateScale: true,
           animateRotate: true
         },
-        responsive: true
-      }
+        responsive: true,
+        scales: {
+          y: this.type === 'bar' ? {
+            type: 'linear',
+            title: {
+              display: true,
+              text: 'Задачи'
+            },
+            ticks: {
+              stepSize: 1
+            }
+          } : undefined,
+        }
+      },
     });
 
     this.chart.update();
