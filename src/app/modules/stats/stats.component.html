@@ -1,0 +1,5 @@
+<div *ngIf="date$ | async as date">
+    <app-dropdown (select)="changeChartType($event)" [values]="chartTypeSelector"></app-dropdown>
+    <app-selector [type]="selectorType" [format]="selectorDateFormat"></app-selector>
+    <app-chart [data]="data" [type]="$any(chartType)"></app-chart>
+</div>

@@ -1,0 +1,1 @@
+export type TSelectorDateFormat = 'MMMM YYYY' | 'DD.MM.YYYY';

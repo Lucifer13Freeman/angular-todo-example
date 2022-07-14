@@ -1,0 +1,24 @@
+<header class="navbar">
+  <div class="container">
+    <div class="navbar-mobile-top">
+      <div class="navbar-logo">
+        <img 
+          width="36" 
+          src="assets/logo/logo.svg" 
+          alt=""
+          routerLink="/"
+        />
+      </div>
+      <button class="material-icons navbar-toggle"
+        (click)="toggle()"
+      >
+        {{ !isOpened ? "menu" : "close" }}
+      </button>
+    </div>
+    <nav class="navbar-top">
+      <a (click)="isOpened = false" routerLink="/todo">Задачи</a>
+      <a (click)="isOpened = false" routerLink="/calendar">Календарь</a>
+      <a (click)="isOpened = false" routerLink="/stats">График</a>
+    </nav>
+  </div>
+</header>

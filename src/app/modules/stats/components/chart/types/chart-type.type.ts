@@ -1,0 +1,1 @@
+export type TChartType = 'bar' | 'pie' | 'doughnut';

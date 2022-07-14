@@ -1,0 +1,14 @@
+<div *ngIf="model$ | async as model; else error">
+    <app-task-form [date]="model.date"></app-task-form>
+    
+    <div class="tasks" *ngIf="model.tasks$ | async as tasks; else errorNotfound">
+        <app-task-item *ngFor="let task of tasks" [task]="task"></app-task-item>
+        <h3 *ngIf="tasks.length === 0">На эту дату пока нет задач...</h3>
+    </div>
+    <ng-template #errorNotfound>
+        <app-error text="Задачи не найдены"></app-error>
+    </ng-template>
+</div>
+<ng-template #error>
+    <app-error></app-error>
+</ng-template>
