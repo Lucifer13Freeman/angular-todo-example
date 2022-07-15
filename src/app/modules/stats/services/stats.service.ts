@@ -53,7 +53,7 @@ export class StatsService {
     const completed: number = tasks.filter((t: Task) => t.isCompleted).length;
     const uncompleted: number = tasks.length - completed;
     const val: number = completed / (completed + uncompleted) * 100;
-    const progress: number = parseFloat(val.toFixed(2));
+    const progress: number = !Number.isNaN(val) ? parseFloat(val.toFixed(2)) : 0;
 
     return { completed, uncompleted, progress }
   }

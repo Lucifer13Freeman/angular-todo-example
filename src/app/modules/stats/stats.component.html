@@ -9,9 +9,17 @@
     </div>
 
     <app-selector [format]="model.selectorDateFormat"></app-selector>
-    <div *ngIf="model.data.completed + model.data.completed !== 0; else noTasks" class="chart">
-        <app-chart [data]="model.data" [type]="model.chartType"></app-chart>
-    </div>
+    <!-- <div *ngIf="model.data.completed + model.data.completed !== 0; else noTasks" class="chart"> -->
+        <!-- <app-chart *ngIf="chartModel$ | async as chartModel"
+        [data]="chartModel.data" [type]="chartModel.type"
+        ></app-chart> -->
+        <!-- <app-chart 
+            [type]="(chartModel$ | async)!.type" 
+            [data]="(chartModel$ | async)!.data">
+        </app-chart> -->
+        <!-- <app-chart [data]="model.data" [type]="model.chartType"></app-chart> -->
+        <app-chart></app-chart>
+    <!-- </div> -->
     <ng-template #noTasks>
         <h3>На эту дату пока нет задач...</h3>
     </ng-template>

@@ -35,12 +35,10 @@ export class StatsComponent implements OnInit {
   }
 
   public changeChartType(value: string): void {
-    const chartType = value as TChartType;
-    this.statsService.chartType = chartType;
+    this.statsService.chartType = value as TChartType;
   }
   
   public changeSelectorType(value: string): void {
-    const selectorDateFormat = value as TSelectorDateFormat;
-    this.statsService.selectorDateFormat = selectorDateFormat;
+    this.statsService.selectorDateFormat = value as TSelectorDateFormat;
   }
 }

@@ -1,8 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, 
-        ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, 
+        ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { IStatsData } from '../../interfaces/stats-data.interface';
-import { TChartType } from './types/chart-type.type';
+import { map, Observable } from 'rxjs';
+import { StatsModel } from '../../models/stats.model';
+import { StatsService } from '../../services/stats.service';
+import { ChartModel } from './model/chart.model';
 
 
 @Component({
@@ -11,36 +13,48 @@ import { TChartType } from './types/chart-type.type';
   styleUrls: ['./chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
+export class ChartComponent implements OnInit, OnDestroy {
   
   @ViewChild('chart')
   private chartRef!: ElementRef;
-
-  @Input()
-  public data: IStatsData = { completed: 0, uncompleted: 0, progress: 0 }
-
-  @Input()
-  public type: TChartType = 'bar';
-
   private chart?: Chart;
 
-  constructor() { }
+  public model$!: Observable<ChartModel>;
+  public model!: ChartModel;
 
-  public ngOnInit(): void {}
-  
-  public ngAfterViewInit(): void {
-    this.getChart() 
+  constructor(private readonly statsService: StatsService) { }
+
+  public ngOnInit(): void {
+    this.initModel();
   }
 
-  public ngOnChanges(): void {
-    this.getChart() 
+  private initModel(): void {
+    this.model$ = this.statsService.model$.pipe(
+      map((model: StatsModel) => {
+        const chartModel: ChartModel = {
+          data: model.data,
+          type: model.chartType
+        }
+        this.getChart(chartModel);
+        this.model = chartModel;
+
+        return chartModel;
+      })
+    );
+  }
+  
+  public ngAfterViewInit(): void {
+    this.getChart({
+      data: this.model.data,
+      type: this.model.type
+    });
   }
 
   public ngOnDestroy(): void {
     this.chart?.destroy();
   }
   
-  private getChart(): void {
+  private getChart(model: ChartModel): void {
 
     this.chart?.destroy();
 
@@ -52,16 +66,16 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
 
     const data: any = {
       labels: [
-        `Завершено ${this.data.completed}`,
-        `Не завершено ${this.data.uncompleted}`
+        `Завершено ${model.data.completed}`,
+        `Не завершено ${model.data.uncompleted}`
       ],
       datasets: [
         { 
-          type: this.type,
-          label: `Прогресс ${this.data.progress}%`,
+          type: model.type,
+          label: `Прогресс ${model.data.progress}%`,
           data: [
-            this.data.completed, 
-            this.data.uncompleted
+            model.data.completed, 
+            model.data.uncompleted
           ],
           borderColor: "#8e5ea2",
           backgroundColor: [
@@ -75,7 +89,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
     };
 
     this.chart = new Chart(canvas, {
-      type: this.type,
+      type: model.type,
       data,
       options: {
         elements: {
@@ -89,7 +103,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
           animateRotate: true
         },
         responsive: true,
-        scales: this.type === 'bar' ? {
+        scales: model.type === 'bar' ? {
           y: {
             type: 'linear',
             title: {
