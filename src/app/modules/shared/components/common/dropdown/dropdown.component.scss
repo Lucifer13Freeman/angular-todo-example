@@ -20,7 +20,7 @@ select::-ms-expand {
   display: flex;
   height: 2rem;
   border-radius: 0.25rem;
-//   overflow: auto;
+  overflow: hidden;
 }
 
 .select::after {

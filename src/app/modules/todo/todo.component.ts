@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SelectorTypeEnum } from '../shared/components/date/selector/enums/selector.enum';
 
 
 @Component({
@@ -9,8 +8,6 @@ import { SelectorTypeEnum } from '../shared/components/date/selector/enums/selec
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoComponent implements OnInit {
-
-  public selectorType: SelectorTypeEnum = SelectorTypeEnum.DAY;
 
   constructor() { }
 

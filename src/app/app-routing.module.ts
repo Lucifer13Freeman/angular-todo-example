@@ -12,7 +12,8 @@ const routes: Routes = [
   },
   { 
     path: 'calendar', 
-    loadChildren: () => import('./modules/organizer/organizer.module').then(m => m.OrganizerModule) },
+    loadChildren: () => import('./modules/organizer/organizer.module').then(m => m.OrganizerModule) 
+  },
   { 
     path: 'todo', 
     loadChildren: () => import('./modules/todo/todo.module').then(m => m.TodoModule),
