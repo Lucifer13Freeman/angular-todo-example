@@ -10,26 +10,23 @@ import { IDropdownItem } from './interfaces/dropdown-item.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownComponent implements OnInit {
-
-  selectedOption!: IDropdownItem;
-
+  
   @Input()
   options: IDropdownItem[] = [];
-
-  @Input()
-  title: string = '';
 
   @Output()
   select: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
 
-  public ngOnInit(): void { 
-    this.title = this.options.length > 0 ? this.options[0].label : '';
-  }
+  public ngOnInit(): void { }
 
   public selectItem(event: Event): void {
     const value = (event.target as HTMLSelectElement).value;
     this.select.emit(value);
+    this.options.map((opt: IDropdownItem) => {
+      if (opt.value === value) opt.selected = true;
+      else opt.selected = false;
+    });
   }
 }
