@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Moment } from 'moment';
 import { Observable } from 'rxjs';
 import { DateService } from 'src/app/modules/shared/services/date.service';
-import { SelectorTypeEnum } from '../shared/components/date/selector/enums/selector.enum';
 
 
 @Component({
@@ -14,7 +13,6 @@ import { SelectorTypeEnum } from '../shared/components/date/selector/enums/selec
 export class OrganizerComponent implements OnInit {
 
   public date$!: Observable<Moment>;
-  public selectorType: SelectorTypeEnum = SelectorTypeEnum.MONTH;
   
   constructor(private readonly dateService: DateService) { }
 

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, tap } from 'rxjs';
-import { IDay } from 'src/app/modules/shared/interfaces/day.interface';
-import { IWeek } from '../../../interfaces/week.interface';
+import { IDay } from 'src/app/modules/shared/components/date/calendar/interfaces/day.interface';
+import { IWeek } from './interfaces/week.interface';
 import { DateService } from '../../../services/date.service';
 
 

@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import * as moment from "moment";
 import { ITask } from "../interfaces/task.interface";
 import { LocalStorageService } from "src/app/modules/shared/services/local-storage.service";
 import { ITasksCollection } from "../interfaces/tasks-collection.interface";
@@ -22,13 +21,13 @@ export class TasksService {
         return this._tasksSubject$.asObservable();
     }
 
-    public getTasks$(date: moment.Moment): Observable<Task[]> {
+    public getTasks$(date: string): Observable<Task[]> {
         this.getTasks(date);
         return this.tasks$;
     }
 
-    public getTasks(date: moment.Moment): Task[] {
-        const tasksCollection: ITasksCollection = this.getTasksFromStorage(date.format('DD-MM-YYYY'));
+    public getTasks(date: string): Task[] {
+        const tasksCollection: ITasksCollection = this.getTasksFromStorage(date);
         this._tasksSubject$.next(tasksCollection.tasks);
         return this._tasksSubject$.value;
     }
@@ -54,7 +53,7 @@ export class TasksService {
         return tasks;
     }
 
-    public addTask(text: string, date: string = moment().format('DD-MM-YYYY')): Task {
+    public addTask(text: string, date: string): Task {
 
         const tasksCollection: ITasksCollection = this.getTasksFromStorage(date);
 

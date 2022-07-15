@@ -1,4 +1,18 @@
-<div *ngIf="date$ | async as date">
-    <app-selector [type]="selectorType" format="DD.MM.YYYY"></app-selector>
-    <app-chart [data]="data" [type]="chartType"></app-chart>
+<div *ngIf="model$| async as model">
+    <div class="select">
+        <app-dropdown (select)="changeChartType($event)" 
+            [options]="model.chartTypeOptions">
+        </app-dropdown>
+        <app-dropdown (select)="changeSelectorType($event)" 
+            [options]="model.selectorTypeOptions">
+        </app-dropdown>
+    </div>
+
+    <app-selector [format]="model.selectorDateFormat"></app-selector>
+    <div *ngIf="model.data.completed + model.data.completed !== 0; else noTasks" class="chart">
+        <app-chart [data]="model.data" [type]="model.chartType"></app-chart>
+    </div>
+    <ng-template #noTasks>
+        <h3>На эту дату пока нет задач...</h3>
+    </ng-template>
 </div>

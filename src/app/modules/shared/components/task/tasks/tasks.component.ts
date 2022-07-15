@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, of, switchMap } from 'rxjs';
+<<<<<<< HEAD
 import { TasksModel } from '../../../models/tasks.model';
+=======
+import { TasksModel } from './models/tasks.model';
+>>>>>>> dev
 import { DateService } from '../../../services/date.service';
 import { TasksService } from '../../../services/tasks.service';
 
@@ -27,7 +31,7 @@ export class TasksComponent implements OnInit {
     this.model$ = of({
       date: this.dateService.date, 
       tasks$: this.dateService.date$.pipe(
-        switchMap((date: moment.Moment) => this.tasksService.getTasks$(date))
+        switchMap((date: moment.Moment) => this.tasksService.getTasks$(date.format('DD-MM-YYYY')))
       )
     });
   }

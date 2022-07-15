@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DateService } from './services/date.service';
 import { TasksService } from './services/tasks.service';
+import { DropdownComponent } from './components/common/dropdown/dropdown.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { TasksService } from './services/tasks.service';
     ErrorComponent,
     NotFoundComponent,
     NavbarComponent,
+    DropdownComponent,
     MomentPipe
   ],
   imports: [
@@ -41,6 +43,7 @@ import { TasksService } from './services/tasks.service';
     ErrorComponent,
     NotFoundComponent,
     NavbarComponent,
+    DropdownComponent,
     MomentPipe
   ]
 })

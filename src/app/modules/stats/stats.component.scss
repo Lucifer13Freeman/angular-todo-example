@@ -15,3 +15,17 @@
       transition-duration: 0.2s;
     }
 }
+
+.select {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+h5, h3 {
+  text-align: center;
+}
+
+.chart {
+  padding: 1rem 0;
+}
