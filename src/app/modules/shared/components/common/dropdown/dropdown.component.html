@@ -1,5 +1,7 @@
-<select (change)="selectItem($any($event))">
-    <option *ngFor="let value of values" [value]="value" [ngValue]="value">
-        {{ value.label }}
-    </option>
-</select>
+<div class="select">
+    <select (change)="selectItem($any($event))">
+        <option *ngFor="let value of options" [value]="value.value">
+            {{ value.label }}
+        </option>
+    </select>
+</div>

@@ -1,6 +1,6 @@
 import { Moment } from "moment";
 import { Observable } from "rxjs";
-import { Task } from "./task.model";
+import { Task } from "../../../../models/task.model";
 
 
 export class TasksModel {

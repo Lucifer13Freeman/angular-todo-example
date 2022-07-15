@@ -1,4 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, 
+        ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { IStatsData } from '../../interfaces/stats-data.interface';
 import { TChartType } from './types/chart-type.type';
@@ -14,13 +15,14 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
   
   @ViewChild('chart')
   private chartRef!: ElementRef;
-  private chart?: Chart;
 
   @Input()
-  public data: IStatsData = { completed: 0, uncompleted: 0 }
+  public data: IStatsData = { completed: 0, uncompleted: 0, progress: 0 }
 
   @Input()
   public type: TChartType = 'bar';
+
+  private chart?: Chart;
 
   constructor() { }
 
@@ -56,7 +58,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
       datasets: [
         { 
           type: this.type,
-          label: 'Прогресс',
+          label: `Прогресс ${this.data.progress}%`,
           data: [
             this.data.completed, 
             this.data.uncompleted
@@ -87,8 +89,8 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
           animateRotate: true
         },
         responsive: true,
-        scales: {
-          y: this.type === 'bar' ? {
+        scales: this.type === 'bar' ? {
+          y: {
             type: 'linear',
             title: {
               display: true,
@@ -97,8 +99,8 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit, OnChang
             ticks: {
               stepSize: 1
             }
-          } : undefined,
-        }
+          }
+        } : undefined
       },
     });
 

@@ -15,9 +15,6 @@ import { TSelectorDateFormat } from './types/selector-date-format.type';
 export class SelectorComponent implements OnInit {
 
   @Input()
-  public type: SelectorTypeEnum = SelectorTypeEnum.MONTH;
-
-  @Input()
   public format: TSelectorDateFormat = 'MMMM YYYY';
 
   public date$!: Observable<Moment>;
@@ -29,7 +26,7 @@ export class SelectorComponent implements OnInit {
   }
 
   public go(step: number): void {
-    this.type === SelectorTypeEnum.MONTH 
+    this.format === 'MMMM YYYY' 
       ? this.dateService.changeMonthByStep(step) 
       : this.dateService.changeDayByStep(step);
   }
