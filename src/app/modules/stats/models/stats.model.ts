@@ -5,6 +5,7 @@ import { TChartType } from '../components/chart/types/chart-type.type';
 import { IStatsData } from '../interfaces/stats-data.interface';
 
 export class StatsModel {
+  
   public date: moment.Moment = moment();
   public chartType: TChartType = 'bar';
   public data: IStatsData = { completed: 0, uncompleted: 0, progress: 0 };

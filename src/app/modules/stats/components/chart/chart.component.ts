@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, 
-        ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, Component,
+        ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { map, Observable } from 'rxjs';
-import { StatsModel } from '../../models/stats.model';
-import { StatsService } from '../../services/stats.service';
+import { Observable, of, tap } from 'rxjs';
 import { ChartModel } from './model/chart.model';
 
 
@@ -13,41 +11,30 @@ import { ChartModel } from './model/chart.model';
   styleUrls: ['./chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChartComponent implements OnInit, OnDestroy {
+export class ChartComponent implements OnInit, AfterViewChecked, OnDestroy {
   
   @ViewChild('chart')
   private chartRef!: ElementRef;
   private chart?: Chart;
 
-  public model$!: Observable<ChartModel>;
+  @Input()
   public model!: ChartModel;
+  public model$!: Observable<ChartModel>;
 
-  constructor(private readonly statsService: StatsService) { }
+  constructor() { }
 
   public ngOnInit(): void {
     this.initModel();
   }
 
   private initModel(): void {
-    this.model$ = this.statsService.model$.pipe(
-      map((model: StatsModel) => {
-        const chartModel: ChartModel = {
-          data: model.data,
-          type: model.chartType
-        }
-        this.getChart(chartModel);
-        this.model = chartModel;
-
-        return chartModel;
-      })
+    this.model$ = of(this.model).pipe(
+      tap((model: ChartModel) => this.getChart(model))
     );
   }
-  
-  public ngAfterViewInit(): void {
-    this.getChart({
-      data: this.model.data,
-      type: this.model.type
-    });
+
+  public ngAfterViewChecked(): void {
+    this.getChart(this.model);
   }
 
   public ngOnDestroy(): void {
@@ -115,7 +102,7 @@ export class ChartComponent implements OnInit, OnDestroy {
             }
           }
         } : undefined
-      },
+      }
     });
 
     this.chart.update();
